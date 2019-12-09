@@ -1,10 +1,15 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
-public class EvaluationService {
+public class EvaluationService
+
+{
 
 	/**
 	 * 1. Without using the StringBuilder or StringBuffer class, write a method that
@@ -13,6 +18,7 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
+	  
 	public String reverse(String string) {
 		char[] reversed = new char[string.length()];
 		for (int i = reversed.length - 1, j=0; i >= 0; i--, j++) {
@@ -30,9 +36,25 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String acronym ="";
+		Boolean NextAdd = false;
+		for(int i=0; i<phrase.length(); i++) {
+			if(i==0) {
+				acronym = acronym + phrase.charAt(i);
+			}
+			if(NextAdd == true) {
+				acronym = acronym + phrase.charAt(i);
+				NextAdd = false;
+			}
+			if(phrase.charAt(i)==' '|| phrase.charAt(i) == '-') {
+				NextAdd = true;
+			}
+		}
+		   String limpioAcronym = acronym.toUpperCase();
+			return limpioAcronym;
 	}
+		
+		
 
 	/**
 	 * 3. Determine if a triangle is equilateral, isosceles, or scalene. An
@@ -43,7 +65,7 @@ public class EvaluationService {
 	 * different lengths.
 	 *
 	 */
-	static class Triangle {
+       class Triangle {
 		private double sideOne;
 		private double sideTwo;
 		private double sideThree;
@@ -51,6 +73,8 @@ public class EvaluationService {
 		public Triangle() {
 			super();
 		}
+		
+		
 
 		public Triangle(double sideOne, double sideTwo, double sideThree) {
 			this();
@@ -84,21 +108,27 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
+			if ((sideOne == sideTwo) && (sideTwo == sideThree)) {
+				return true;
+			}
 			return false;
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
+			if ((sideOne == sideTwo) && (sideOne == sideThree) && (sideTwo == sideThree)) {
+				return true;
+			}
 			return false;
-		}
-
+			}
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if((sideOne != sideTwo) && (sideOne != sideThree) && (sideTwo != sideThree)) {
+				return true;
+			}
+			    return false;
 		}
+       
+	
 
-	}
 
 	/**
 	 * 4. Given a word, compute the scrabble score for that word.
@@ -116,8 +146,32 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		int score = 0;
+		String lowercase = string.toLowerCase();
+		for(int i=0;i<lowercase.length();i++) {
+			if(lowercase.charAt(i)=='a'||lowercase.charAt(i)=='e'||lowercase.charAt(i)=='i'||lowercase.charAt(i)=='o'||lowercase.charAt(i)=='u'||lowercase.charAt(i)=='l'||lowercase.charAt(i)=='n'||lowercase.charAt(i)=='r'||lowercase.charAt(i)=='s'||lowercase.charAt(i)=='t') {
+				score = score + 1;
+			}
+			if(lowercase.charAt(i)=='d'||lowercase.charAt(i)=='g') {
+				score = score + 2;
+			}
+			if(lowercase.charAt(i)=='b'||lowercase.charAt(i)=='c'||lowercase.charAt(i)=='m'||lowercase.charAt(i)=='p') {
+				score = score + 3;
+			}
+			if(lowercase.charAt(i)=='f'||lowercase.charAt(i)=='h'||lowercase.charAt(i)=='v'||lowercase.charAt(i)=='w'||lowercase.charAt(i)=='y') {
+				score = score + 4;
+			}
+			if(lowercase.charAt(i)=='k') {
+				score = score + 5;
+			}
+			if(lowercase.charAt(i)=='j'||lowercase.charAt(i)=='x') {
+				score = score + 8;
+			}
+			if(lowercase.charAt(i)=='q'||lowercase.charAt(i)=='z') {
+				score = score + 10;
+			}
+		}
+		return score;
 	}
 
 	/**
@@ -152,8 +206,22 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String numerotelefono = "";
+		for(int i=0;i<string.length();i++) {
+			if (string.charAt(i)=='0'||string.charAt(i)=='1'||string.charAt(i)=='2'||string.charAt(i)=='3'||string.charAt(i)=='4'||string.charAt(i)=='5'||string.charAt(i)=='6'||string.charAt(i)=='7'||string.charAt(i)=='8'||string.charAt(i)=='9') {
+				numerotelefono = numerotelefono + string.charAt(i);
+			}
+		}
+		if (numerotelefono.length()>11) {
+			throw new IllegalArgumentException();
+		}
+		if (numerotelefono.length()==11 && numerotelefono.charAt(0)!=1) {
+			throw new IllegalArgumentException();
+		}
+		if (numerotelefono.length()<10) {
+			throw new IllegalArgumentException();
+		}
+		return numerotelefono;
 	}
 
 	/**
@@ -166,8 +234,35 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+  
+		Map<String, Integer> actualWordCount = new HashMap<>();
+		
+		String[] stringArray;
+		
+		if ( string.contains(" ")==true) {
+			stringArray = string.split(" ");
+		}
+		else if ( string.contains(",")==true && string.contains("\n")==true) {
+			stringArray = string.split(",\n");
+		}
+		else if ( string.contains(",")==true) {
+			stringArray = string.split(",");
+		}
+		else {
+			stringArray = string.split(" ");
+		}
+		
+		for(int i=0;i<stringArray.length;i++) {
+			int value = 0;
+			for(int j=0;j<stringArray.length;j++) {
+				if (stringArray[j].equals(stringArray[i])) {
+					value = value+1;
+				}
+			}
+			actualWordCount.put(stringArray[i], value);
+		}
+		
+		return actualWordCount;
 	}
 
 	/**
@@ -207,7 +302,10 @@ public class EvaluationService {
 	 */
 	static class BinarySearch<T> {
 		private List<T> sortedList;
-
+		int indexbefore;
+		int indexcurrent;
+		int changethis;
+        
 		public int indexOf(T t) {
 			// TODO Write an implementation for this method declaration
 			return 0;
@@ -245,8 +343,23 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
+	private static final char[] vowels = { 'a', 'e', 'i','o', 'u'};
 	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
+		int begin = 0;
+		int firstVowel = 0;
+		int end = string.length();
+		for(int i = 0; i < end; i++) {
+			char c = Character.toLowerCase(string.charAt(i));
+			if(Arrays.asList(vowels).contains(c)) {
+				firstVowel = i;
+				break;
+			}
+		}
+		if(begin != firstVowel) {
+			String beginString = string.substring(firstVowel, end);
+			String endString = string.substring(begin, firstVowel) +"ay";
+			return beginString+endString;
+		}
 		return null;
 	}
 
@@ -266,8 +379,21 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		String string = String.valueOf(input);
+		int length = string.length();
+		int total = 0;
+		Boolean probado;
+		for(int i=0;i<length;i++) {
+			char number = string.charAt(i);
+			int a=Character.getNumericValue(number);
+			total= (int) (total + Math.pow(a, length));
+		}
+		if(input==total) {
+			probado = true;
+		}else {
+			probado = false;
+		}
+		return probado;
 	}
 
 	/**
@@ -536,9 +662,66 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+	public  int solveWordProblem(String string) {
+		
+			String StringA = "";
+			String StringB = "";
+			int argA = 0;
+			int argB= 0;
+			String operation = "";
+			String referenceString = "0123456789-";
+			Boolean stringfilled = false;
+			Boolean stringstarted = false;
+			
+			for(int i=0;i<string.length();i++) {
+				int isUsable = referenceString.indexOf(string.charAt(i));
+				
+				if(isUsable>=0 && stringstarted == false) {
+					StringA = StringA+string.charAt(i);
+					stringstarted = true;
+					
+				}else if(isUsable>=0&&stringstarted==true&&stringfilled==false) {
+					StringA = StringA+string.charAt(i);
+					
+				}else if(isUsable<=0&&stringstarted==true&&stringfilled==false) {
+					stringfilled=true;
+					
+				}else if(isUsable>=0&&stringfilled==true) {
+					StringB=StringB+string.charAt(i);
+				}
+			}
+			argA= Integer.parseInt(StringA);
+			argB= Integer.parseInt(StringB);
+			if (string.contains("plus")) {
+				operation = "plus";
+			}
+			if (string.contains("minus")) {
+				operation = "minus";
+			}
+			if (string.contains("multiplied")) {
+				operation = "multiplied";
+			}
+			if (string.contains("divided")) {
+				operation = "divided";
+			}
+			int number = 0;
+			switch(operation) {
+			case "plus":
+				number = argA+argB;
+				break;
+			case "minus":
+				number = argA-argB;
+				break;
+			case "multiplied":
+				number = argA*argB;
+				break;
+			case "divided":
+				number = argA/argB;
+				break;
+			}
+			return number;
 	}
 
+}
+       
 }

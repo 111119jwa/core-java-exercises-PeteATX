@@ -21,16 +21,17 @@ import org.junit.rules.ExpectedException;
 
 public class EvaluationServiceTest {
 
-	private static final EvaluationService evaluationService = new EvaluationService();
+	private static EvaluationService evaluationService = new EvaluationService();
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
 
 	/*******************************************************************
-	 * Question 1
+	 * Question 2
 	 ******************************************************************/
 	@Test
 	public void testAnEmptyString() {
+		
 		assertEquals("", evaluationService.reverse(""));
 	}
 
@@ -91,6 +92,7 @@ public class EvaluationServiceTest {
 
 	@Test
 	public void trianglesWithNoEqualSidesAreNotEquilateral() {
+		EvaluationService evaluationservice = new EvaluationService();
 		EvaluationService.Triangle triangle = new EvaluationService.Triangle(5, 4, 6);
 		assertFalse(triangle.isEquilateral());
 	}
@@ -130,8 +132,9 @@ public class EvaluationServiceTest {
 	 ******************************************************************/
 	@Test
 	public void testAValuableLetter() {
+		assertEquals("", evaluationService.getScrabbleScore(""));
 		assertEquals(4, evaluationService.getScrabbleScore("f"));
-	}
+	}  
 
 	@Test
 	public void testAShortValuableWord() {
